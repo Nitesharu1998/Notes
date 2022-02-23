@@ -1,0 +1,51 @@
+-------------------------------------------------------------------------------------Notes----------------------------------------------------------------------------------------------------------------------
+
+
+//working file creator from bitmap upto android version 28
+
+
+File file = null;
+            try {
+                file = new File(Environment.getExternalStorageDirectory() + File.separator + s);
+                file.createNewFile();
+
+                //Convert bitmap to byte array
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, bos);// YOU can also save it in JPEG
+                byte[] bitmapdata = bos.toByteArray();
+
+                //write the bytes in file
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+                return file;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return file; // it will return null
+            }
+        }
+
+//file creator from bitmap that works for android version above and below 28/29
+
+  private File FileFromBitmap(Activity activity, Bitmap bitmap, String s) { //works on and above targetSDK version 28
+        File file = null;
+        try {
+            String root = Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES).toString();
+            File myDir = new File(root + "/Thyromart");
+            myDir.mkdirs();
+            String fname = s + ".jpg";
+            file = new File(myDir, fname);
+
+            FileOutputStream out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+
+            return file;
+        } catch (Exception e) {
+            System.out.println("File creation exception>>>>>>>>>>> " + e.getLocalizedMessage());
+        }
+        return file;// will return null
+    }

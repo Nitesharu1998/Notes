@@ -33,7 +33,7 @@ File file = null;
         try {
             String root = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_PICTURES).toString();
-            File myDir = new File(root + "/Thyromart");
+            File myDir = new File(root + "/dir_name");
             myDir.mkdirs();
             String fname = s + ".jpg";
             file = new File(myDir, fname);

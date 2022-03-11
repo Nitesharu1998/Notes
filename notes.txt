@@ -28,18 +28,25 @@ File file = null;
 
 //file creator from bitmap that works for android version above and below 28/29
 
-  private File FileFromBitmap(Activity activity, Bitmap bitmap, String s) { //works on and above targetSDK version 28
+  public static File FileFromBitmap(Bitmap bitmap, String newName, String format) { //works on and above targetSDK version 28
         File file = null;
         try {
             String root = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_PICTURES).toString();
-            File myDir = new File(root + "/dir_name");
+            File myDir = new File(root + "/Diggy"); //change directory name accordingly
             myDir.mkdirs();
-            String fname = s + ".jpg";
+            String fname = newName + "."+format;
             file = new File(myDir, fname);
 
             FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            if (format.contains("jpg") || format.contains("jpeg")){
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            }
+            if (format.contains("png")){
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            }
+
             out.flush();
             out.close();
 

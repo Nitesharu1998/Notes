@@ -56,3 +56,23 @@ File file = null;
         }
         return file;// will return null
     }
+    
+    
+    ------------------------------------------------------------------Double space checker------------------------------------------------------------------
+    
+  private boolean DoubleSpaceCheck(String customerName) {
+        Integer SpaceCounter=0;
+        String[] CustomerName_Array=customerName.split("");
+        for (int i = 0; i < CustomerName_Array.length; i++) {
+            if (Global.checkEqualIgnoreCase(CustomerName_Array[i],"")){
+                SpaceCounter++;
+                if (SpaceCounter>=2){
+                    showAlert(MessageConstants.ENTER_VALID_FIRST_NAME);
+                    edtCustName.requestFocus();
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
